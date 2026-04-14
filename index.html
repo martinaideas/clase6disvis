@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Un fetch</title>
+        <style>
+            body {
+                font-family: Helvetica, Arial, sans-serif;
+            }
+            table{
+                border-collapse: collapse;
+            }
+            td, th{
+                border:1px solid black;
+                padding:1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Hola mundo</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Asignatura</th>
+            <th>Grupo</th>
+            <th>Enfoque</th>
+            
+
+
+</table>
+        <ol id="estudiantes"></ol>
+
+        <script>
+
+const t = document.querySelector("table");
+
+            const URL = "https://api.myjson.online/v1/records/5e6e1456-52b8-48d4-a1fc-a8af8accca78";
+    fetch(URL)
+    .then((respuesta) => {
+        if (!respuesta.ok) {
+            throw new Error("Error HTTP: " + respuesta.status);
+        }
+        return respuesta.json();
+    })
+    .then((datos) => {
+        var trabajo = datos.data;
+        console.log("Datos recibidos:", trabajo);
+        trabajo.forEach((x) => {
+            if (x.ok == 1) {
+                t.innerHTML += `<tr><td>${x.name}</td><td>${x.group}</td><td>${x.focus}</td></tr>`
+            }
+        });
+    })
+    .catch((error) => {
+        console.error("Algo salió mal:", error);
+    });
+
+        </script>
+    </body>
+</html>
